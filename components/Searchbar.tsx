@@ -31,7 +31,14 @@ const Searchbar = () => {
     if (!isValidLink) return alert("Please provide a valid Amazon link");
 
     try {
-    } catch (error) {}
+      setIsLoading(true);
+
+      // Scrapre the product page
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -43,8 +50,12 @@ const Searchbar = () => {
         placeholder="Enter Product Link"
         className="searchbar-input"
       />
-      <button type="submit" className="searchbar-btn">
-        Search
+      <button
+        type="submit"
+        className="searchbar-btn"
+        disabled={searchPrompt === ""}
+      >
+        {isLoading ? "Searching..." : "Search"}
       </button>
     </form>
   );
